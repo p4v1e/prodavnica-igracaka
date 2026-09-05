@@ -1,0 +1,25 @@
+<div class="baner">
+  <h1>Igracke za sve uzraste</h1>
+  <p>Dobrodosli u online prodavnicu Svet igracaka. Pogledajte ponudu i porucite igracke online.</p>
+  <a mat-raised-button color="primary" routerLink="/katalog">Pogledaj katalog</a>
+</div>
+
+<div class="kontejner">
+
+  <h2 class="sekcija-naslov">Kategorije</h2>
+  <div class="red prelom g16">
+    <a class="kategorija" *ngFor="let k of kategorije"
+       routerLink="/katalog" [queryParams]="{ kategorija: k.id }">
+      <span class="emodzi">{{ k.slika }}</span>
+      <span class="naziv">{{ k.naziv }}</span>
+    </a>
+  </div>
+
+  <h2 class="sekcija-naslov mt16">Izdvajamo iz ponude</h2>
+
+  <p *ngIf="ucitavanje">Ucitavanje...</p>
+
+  <div class="mreza" *ngIf="!ucitavanje">
+    <app-igracka-kartica *ngFor="let i of izdvojene" [igracka]="i"></app-igracka-kartica>
+  </div>
+</div>

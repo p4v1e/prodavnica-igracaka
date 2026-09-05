@@ -1,0 +1,42 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Kontakt</h1>
+  <p class="podnaslov-stranice">Posaljite nam poruku ili nas pozovite.</p>
+
+  <div class="red prelom g24">
+
+    <form [formGroup]="forma" class="panel popuni" (ngSubmit)="posalji()">
+      <h3 class="bez-margine mb16">Posaljite poruku</h3>
+
+      <p class="uspeh" *ngIf="poslato">Poruka je zabelezena. Odgovoricemo u najkracem roku.</p>
+
+      <mat-form-field>
+        <mat-label>Ime i prezime</mat-label>
+        <input matInput formControlName="ime">
+        <mat-error *ngIf="forma.controls.ime.invalid">Unesite ime.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>E-adresa</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="forma.controls.email.invalid">Unesite ispravnu e-adresu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Poruka</mat-label>
+        <textarea matInput formControlName="poruka" rows="5"></textarea>
+        <mat-error *ngIf="forma.controls.poruka.invalid">Poruka mora imati najmanje 10 znakova.</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit">Posalji</button>
+    </form>
+
+    <div class="panel podaci">
+      <h3 class="bez-margine mb16">Podaci o prodavnici</h3>
+      <p>Adresa: Bulevar kralja Aleksandra 73, Beograd</p>
+      <p>Telefon: 011/555-0100</p>
+      <p>E-adresa: prodaja&#64;igracke.rs</p>
+      <p>Radno vreme: ponedeljak - petak, 09-17h</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="kontejner">
+
+  <p *ngIf="ucitavanje">Ucitavanje...</p>
+
+  <div class="panel prazno" *ngIf="!ucitavanje && !porudzbina">
+    <p>Porudzbina nije pronadjena.</p>
+    <a mat-button color="primary" routerLink="/katalog">Nazad u katalog</a>
+  </div>
+
+  <div *ngIf="!ucitavanje && porudzbina as p">
+
+    <div class="panel poruka">
+      <h1 class="bez-margine">Hvala na porudzbini!</h1>
+      <p>Vasa porudzbina je zavedena pod brojem <b>{{ p.broj }}</b>.</p>
+      <a mat-raised-button color="primary" routerLink="/katalog">Nastavi kupovinu</a>
+    </div>
+
+    <div class="red prelom g24 mt16">
+
+      <div class="panel popuni">
+        <h3 class="bez-margine mb16">Poruceni artikli</h3>
+
+        <div class="red na-krajevima mb8" *ngFor="let s of p.stavke">
+          <span>{{ s.kolicina }} x {{ s.naziv }}</span>
+          <span>{{ s.cena * s.kolicina }} RSD</span>
+        </div>
+
+        <hr>
+
+        <div class="red na-krajevima">
+          <b>Ukupno</b>
+          <span class="cena">{{ p.ukupno }} RSD</span>
+        </div>
+      </div>
+
+      <div class="panel podaci">
+        <h3 class="bez-margine mb16">Podaci o dostavi</h3>
+        <p>{{ p.kupac.ime }} {{ p.kupac.prezime }}</p>
+        <p>{{ p.kupac.adresa }}, {{ p.kupac.grad }}</p>
+        <p>{{ p.kupac.telefon }}</p>
+        <p>{{ p.kupac.email }}</p>
+        <p>Nacin placanja: {{ p.nacinPlacanja }}</p>
+        <p>Datum: {{ p.datum }}</p>
+      </div>
+    </div>
+  </div>
+</div>

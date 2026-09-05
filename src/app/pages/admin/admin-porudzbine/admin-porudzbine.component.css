@@ -1,0 +1,4 @@
+.filter { max-width: 240px; }
+.polje-statusa { width: 130px; font-size: 13px; }
+hr { border: none; border-top: 1px solid #dddddd; margin: 8px 0; }
+p { margin: 4px 0; font-size: 14px; }

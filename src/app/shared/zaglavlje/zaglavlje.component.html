@@ -1,0 +1,30 @@
+<mat-toolbar color="primary" class="traka">
+  <a routerLink="/" class="logo">Svet igracaka</a>
+
+  <a routerLink="/" routerLinkActive="aktivna" [routerLinkActiveOptions]="{ exact: true }" class="link">Pocetna</a>
+  <a routerLink="/katalog" routerLinkActive="aktivna" class="link">Katalog</a>
+  <a routerLink="/kontakt" routerLinkActive="aktivna" class="link">Kontakt</a>
+
+  <span class="razmak"></span>
+
+  <a mat-icon-button routerLink="/korpa" [matBadge]="(korpa$ | async)?.brojArtikala || null"
+     matBadgeColor="warn" matBadgeSize="small">
+    <mat-icon>shopping_cart</mat-icon>
+  </a>
+
+  <ng-container *ngIf="korisnik$ | async as korisnik; else neprijavljen">
+    <button mat-button [matMenuTriggerFor]="meni">
+      <mat-icon>account_circle</mat-icon>
+      {{ korisnik.ime }}
+    </button>
+    <mat-menu #meni="matMenu">
+      <a mat-menu-item routerLink="/nalog">Moj nalog</a>
+      <a mat-menu-item routerLink="/admin" *ngIf="korisnik.uloga === 'administrator'">Administracija</a>
+      <button mat-menu-item (click)="odjava()">Odjava</button>
+    </mat-menu>
+  </ng-container>
+
+  <ng-template #neprijavljen>
+    <a mat-button routerLink="/prijava">Prijava</a>
+  </ng-template>
+</mat-toolbar>

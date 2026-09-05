@@ -1,0 +1,93 @@
+<div class="kontejner" *ngIf="stanje$ | async as stanje">
+
+  <h1 class="naslov-stranice">Korpa</h1>
+  <p class="podnaslov-stranice">Proverite sadrzaj korpe pre nastavka na naplatu.</p>
+
+  <div class="panel prazno" *ngIf="stanje.stavke.length === 0">
+    <p>Korpa je prazna.</p>
+    <a mat-raised-button color="primary" routerLink="/katalog">Idi u katalog</a>
+  </div>
+
+  <div class="red prelom g24" *ngIf="stanje.stavke.length > 0">
+
+    <div class="popuni">
+      <table mat-table [dataSource]="stanje.stavke" class="puna-sirina panel">
+
+        <ng-container matColumnDef="artikal">
+          <th mat-header-cell *matHeaderCellDef>Artikal</th>
+          <td mat-cell *matCellDef="let s">
+            <div class="red centrirano g8">
+              <span class="slika-proizvoda slika-mala">{{ s.igracka.slika }}</span>
+              <span>{{ s.igracka.naziv }}</span>
+            </div>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="cena">
+          <th mat-header-cell *matHeaderCellDef>Cena</th>
+          <td mat-cell *matCellDef="let s">{{ s.igracka.cena }} RSD</td>
+        </ng-container>
+
+        <ng-container matColumnDef="kolicina">
+          <th mat-header-cell *matHeaderCellDef>Kolicina</th>
+          <td mat-cell *matCellDef="let s">
+            <button mat-icon-button (click)="izmeniKolicinu(s.igracka.id, s.kolicina - 1)">
+              <mat-icon>remove</mat-icon>
+            </button>
+            {{ s.kolicina }}
+            <button mat-icon-button (click)="izmeniKolicinu(s.igracka.id, s.kolicina + 1)">
+              <mat-icon>add</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="iznos">
+          <th mat-header-cell *matHeaderCellDef>Iznos</th>
+          <td mat-cell *matCellDef="let s">{{ s.igracka.cena * s.kolicina }} RSD</td>
+        </ng-container>
+
+        <ng-container matColumnDef="akcije">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let s">
+            <button mat-icon-button color="warn" (click)="ukloni(s.igracka.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+        <tr mat-row *matRowDef="let red; columns: kolone;"></tr>
+      </table>
+
+      <div class="red na-krajevima mt16">
+        <a mat-button routerLink="/katalog">Nastavi kupovinu</a>
+        <button mat-button color="warn" (click)="isprazni()">Isprazni korpu</button>
+      </div>
+    </div>
+
+    <div class="panel pregled">
+      <h3 class="bez-margine mb16">Pregled iznosa</h3>
+
+      <div class="red na-krajevima mb8">
+        <span>Artikli ({{ stanje.brojArtikala }})</span>
+        <span>{{ stanje.medjuzbir }} RSD</span>
+      </div>
+
+      <div class="red na-krajevima mb8">
+        <span>Dostava</span>
+        <span>{{ stanje.dostava === 0 ? 'besplatno' : stanje.dostava + ' RSD' }}</span>
+      </div>
+
+      <hr>
+
+      <div class="red na-krajevima mb16">
+        <span>Ukupno</span>
+        <span class="cena">{{ stanje.ukupno }} RSD</span>
+      </div>
+
+      <button mat-raised-button color="primary" class="dugme" (click)="naNaplatu()">
+        Nastavi na naplatu
+      </button>
+    </div>
+  </div>
+</div>

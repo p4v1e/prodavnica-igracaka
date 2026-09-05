@@ -1,0 +1,107 @@
+/* Globalni stilovi aplikacije */
+/* Koristi se predefinisana Angular Material tema indigo-pink (vidi angular.json) */
+
+html, body {
+  height: 100%;
+  margin: 0;
+  background-color: #f2f2f2;
+  color: #222222;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* --- Flexbox pomocne klase --- */
+.red { display: flex; flex-direction: row; }
+.kolona { display: flex; flex-direction: column; }
+.centrirano { align-items: center; }
+.na-krajevima { justify-content: space-between; }
+.u-centru { justify-content: center; }
+.prelom { flex-wrap: wrap; }
+.popuni { flex: 1; }
+.razmak { flex: 1; }
+.g8 { gap: 8px; }
+.g16 { gap: 16px; }
+.g24 { gap: 24px; }
+
+/* --- Kontejner stranice --- */
+.kontejner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 16px 40px 16px;
+}
+
+.naslov-stranice { font-size: 24px; margin: 0 0 4px 0; }
+.podnaslov-stranice { color: #666666; font-size: 14px; margin: 0 0 20px 0; }
+.sekcija-naslov { font-size: 18px; margin: 0 0 12px 0; }
+
+/* --- Panel (bela kutija) --- */
+.panel {
+  background-color: #ffffff;
+  border: 1px solid #dddddd;
+  padding: 16px;
+}
+
+/* --- Mreza sa karticama igracaka --- */
+.mreza { display: flex; flex-wrap: wrap; gap: 16px; }
+.mreza > * { flex: 1 1 220px; max-width: 260px; }
+
+/* --- Oznake --- */
+.oznaka {
+  display: inline-block;
+  padding: 2px 8px;
+  font-size: 12px;
+  border: 1px solid #cccccc;
+  background-color: #f5f5f5;
+  color: #444444;
+}
+.oznaka-akcija { background-color: #ffe0e0; border-color: #f0b0b0; color: #a02020; }
+.oznaka-ima { background-color: #e2f0e2; border-color: #b0d0b0; color: #206020; }
+.oznaka-nema { background-color: #f0e0e0; border-color: #d0b0b0; color: #903030; }
+
+/* --- Cene --- */
+.cena { font-size: 17px; font-weight: bold; }
+.cena-velika { font-size: 24px; font-weight: bold; }
+
+/* --- Slika proizvoda (emodzi umesto fotografije) --- */
+.slika-proizvoda {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f5f5;
+  border: 1px solid #eeeeee;
+  font-family: "Noto Color Emoji", sans-serif;
+}
+.slika-mala { width: 44px; height: 44px; font-size: 22px; }
+.slika-srednja { width: 70px; height: 70px; font-size: 34px; }
+
+/* --- Tabele --- */
+table.puna-sirina { width: 100%; }
+
+/* --- Prazno stanje --- */
+.prazno {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666666;
+}
+
+/* --- Sitnice --- */
+.tekst-mali { font-size: 13px; }
+.tekst-sivi { color: #666666; }
+.bez-margine { margin: 0; }
+.mt8 { margin-top: 8px; }
+.mt16 { margin-top: 16px; }
+.mb8 { margin-bottom: 8px; }
+.mb16 { margin-bottom: 16px; }
+
+.mat-mdc-form-field { width: 100%; }
+
+.snack-uspeh { --mdc-snackbar-container-color: #2e7d32; }
+.snack-greska { --mdc-snackbar-container-color: #c62828; }
+.snack-info { --mdc-snackbar-container-color: #37474f; }
+
+@media (max-width: 700px) {
+  .sakrij-na-mobilnom { display: none; }
+}

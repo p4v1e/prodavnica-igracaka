@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{ izmena ? 'Izmena igracke' : 'Nova igracka' }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="forma">
+
+    <mat-form-field>
+      <mat-label>Naziv</mat-label>
+      <input matInput formControlName="naziv">
+      <mat-error *ngIf="forma.controls.naziv.invalid">Najmanje 3 znaka.</mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Opis</mat-label>
+      <textarea matInput formControlName="opis" rows="3"></textarea>
+      <mat-error *ngIf="forma.controls.opis.invalid">Najmanje 10 znakova.</mat-error>
+    </mat-form-field>
+
+    <div class="red g8">
+      <mat-form-field>
+        <mat-label>Kategorija</mat-label>
+        <mat-select formControlName="kategorijaId">
+          <mat-option *ngFor="let k of kategorije" [value]="k.id">{{ k.naziv }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Proizvodjac</mat-label>
+        <input matInput formControlName="proizvodjac">
+        <mat-error *ngIf="forma.controls.proizvodjac.invalid">Unesite proizvodjaca.</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="red g8">
+      <mat-form-field>
+        <mat-label>Cena (RSD)</mat-label>
+        <input matInput type="number" formControlName="cena">
+        <mat-error *ngIf="forma.controls.cena.invalid">Cena mora biti veca od nule.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Na stanju</mat-label>
+        <input matInput type="number" formControlName="naStanju">
+      </mat-form-field>
+    </div>
+
+    <div class="red g8">
+      <mat-form-field>
+        <mat-label>Uzrast</mat-label>
+        <mat-select formControlName="uzrast">
+          <mat-option *ngFor="let u of uzrasti" [value]="u">{{ u }} godina</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Ocena</mat-label>
+        <input matInput type="number" formControlName="ocena">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Slika</mat-label>
+        <input matInput formControlName="slika">
+      </mat-form-field>
+    </div>
+
+    <div class="red g24">
+      <mat-checkbox formControlName="akcija">Na akciji</mat-checkbox>
+      <mat-checkbox formControlName="izdvojeno">Prikazi na pocetnoj</mat-checkbox>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Odustani</button>
+  <button mat-raised-button color="primary" (click)="sacuvaj()">Sacuvaj</button>
+</mat-dialog-actions>

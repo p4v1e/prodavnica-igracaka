@@ -1,0 +1,109 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Naplata</h1>
+  <p class="podnaslov-stranice">Unesite podatke za dostavu i izaberite nacin placanja.</p>
+
+  <div class="red prelom g24">
+
+    <div class="popuni">
+      <mat-stepper orientation="vertical" linear>
+
+        <mat-step [stepControl]="formaKupca" label="Podaci o kupcu">
+          <form [formGroup]="formaKupca" class="mt16">
+            <div class="red g8">
+              <mat-form-field>
+                <mat-label>Ime</mat-label>
+                <input matInput formControlName="ime">
+                <mat-error *ngIf="formaKupca.controls.ime.invalid">Unesite ime.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Prezime</mat-label>
+                <input matInput formControlName="prezime">
+                <mat-error *ngIf="formaKupca.controls.prezime.invalid">Unesite prezime.</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="red g8">
+              <mat-form-field>
+                <mat-label>E-adresa</mat-label>
+                <input matInput formControlName="email">
+                <mat-error *ngIf="formaKupca.controls.email.invalid">Unesite ispravnu e-adresu.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Telefon</mat-label>
+                <input matInput formControlName="telefon">
+                <mat-error *ngIf="formaKupca.controls.telefon.invalid">Unesite telefon.</mat-error>
+              </mat-form-field>
+            </div>
+
+            <div class="red g8">
+              <mat-form-field>
+                <mat-label>Adresa</mat-label>
+                <input matInput formControlName="adresa">
+                <mat-error *ngIf="formaKupca.controls.adresa.invalid">Unesite adresu.</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>Grad</mat-label>
+                <input matInput formControlName="grad">
+                <mat-error *ngIf="formaKupca.controls.grad.invalid">Unesite grad.</mat-error>
+              </mat-form-field>
+            </div>
+
+            <button mat-raised-button color="primary" matStepperNext
+                    [disabled]="formaKupca.invalid">Dalje</button>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="formaPlacanja" label="Nacin placanja">
+          <form [formGroup]="formaPlacanja" class="mt16">
+            <mat-radio-group formControlName="nacin" class="kolona g8">
+              <mat-radio-button value="pouzecem">Placanje pouzecem</mat-radio-button>
+              <mat-radio-button value="kartica">Platna kartica</mat-radio-button>
+              <mat-radio-button value="uplatnica">Uplatnica</mat-radio-button>
+            </mat-radio-group>
+
+            <div class="mt16">
+              <button mat-button matStepperPrevious>Nazad</button>
+              <button mat-raised-button color="primary" matStepperNext>Dalje</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step label="Potvrda">
+          <div class="mt16">
+            <p><b>Kupac:</b> {{ formaKupca.value.ime }} {{ formaKupca.value.prezime }}</p>
+            <p><b>Adresa:</b> {{ formaKupca.value.adresa }}, {{ formaKupca.value.grad }}</p>
+            <p><b>Kontakt:</b> {{ formaKupca.value.email }} | {{ formaKupca.value.telefon }}</p>
+            <p><b>Nacin placanja:</b> {{ formaPlacanja.value.nacin }}</p>
+
+            <button mat-button matStepperPrevious>Nazad</button>
+            <button mat-raised-button color="primary" [disabled]="slanje" (click)="potvrdi()">
+              Potvrdi porudzbinu
+            </button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </div>
+
+    <div class="panel pregled">
+      <h3 class="bez-margine mb16">Vasa porudzbina</h3>
+
+      <div class="red na-krajevima mb8" *ngFor="let s of stanje.stavke">
+        <span class="tekst-mali">{{ s.kolicina }} x {{ s.igracka.naziv }}</span>
+        <span class="tekst-mali">{{ s.igracka.cena * s.kolicina }}</span>
+      </div>
+
+      <hr>
+
+      <div class="red na-krajevima mb8">
+        <span>Dostava</span>
+        <span>{{ stanje.dostava === 0 ? 'besplatno' : stanje.dostava + ' RSD' }}</span>
+      </div>
+
+      <div class="red na-krajevima">
+        <span>Ukupno</span>
+        <span class="cena">{{ stanje.ukupno }} RSD</span>
+      </div>
+    </div>
+  </div>
+</div>

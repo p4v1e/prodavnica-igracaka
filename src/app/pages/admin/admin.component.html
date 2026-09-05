@@ -1,0 +1,15 @@
+<div class="red">
+
+  <div class="meni">
+    <h3>Administracija</h3>
+    <a routerLink="/admin" routerLinkActive="aktivna" [routerLinkActiveOptions]="{ exact: true }">Kontrolna tabla</a>
+    <a routerLink="/admin/igracke" routerLinkActive="aktivna">Igracke</a>
+    <a routerLink="/admin/porudzbine" routerLinkActive="aktivna">Porudzbine</a>
+    <a routerLink="/admin/korisnici" routerLinkActive="aktivna">Korisnici</a>
+    <a routerLink="/">Nazad u prodavnicu</a>
+  </div>
+
+  <div class="popuni">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Katalog igracaka</h1>
+  <p class="podnaslov-stranice">Pretrazite ponudu po nazivu, kategoriji, uzrastu i ceni.</p>
+
+  <div class="red prelom g24">
+
+    <!-- Kriterijumi pretrage -->
+    <div class="panel filteri">
+      <h3 class="bez-margine mb16">Pretraga</h3>
+
+      <mat-form-field>
+        <mat-label>Pojam</mat-label>
+        <input matInput [(ngModel)]="filter.pojam" (keyup.enter)="pretrazi()">
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Kategorija</mat-label>
+        <mat-select [(ngModel)]="filter.kategorijaId">
+          <mat-option [value]="null">Sve kategorije</mat-option>
+          <mat-option *ngFor="let k of kategorije" [value]="k.id">{{ k.naziv }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Uzrast</mat-label>
+        <mat-select [(ngModel)]="filter.uzrast">
+          <mat-option value="">Svi uzrasti</mat-option>
+          <mat-option *ngFor="let u of uzrasti" [value]="u">{{ u }} godina</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="red g8">
+        <mat-form-field>
+          <mat-label>Cena od</mat-label>
+          <input matInput type="number" [(ngModel)]="filter.minCena">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Cena do</mat-label>
+          <input matInput type="number" [(ngModel)]="filter.maxCena">
+        </mat-form-field>
+      </div>
+
+      <mat-form-field>
+        <mat-label>Sortiranje</mat-label>
+        <mat-select [(ngModel)]="filter.sortiranje">
+          <mat-option value="naziv">Naziv</mat-option>
+          <mat-option value="cena-rastuce">Cena rastuce</mat-option>
+          <mat-option value="cena-opadajuce">Cena opadajuce</mat-option>
+          <mat-option value="ocena">Ocena</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="dugme mb8" (click)="pretrazi()">Pretrazi</button>
+      <button mat-button class="dugme" (click)="ponisti()">Ponisti</button>
+    </div>
+
+    <!-- Rezultati -->
+    <div class="popuni">
+      <p class="tekst-sivi">Pronadjeno artikala: {{ rezultat.length }}</p>
+
+      <p *ngIf="ucitavanje">Ucitavanje...</p>
+
+      <div class="panel prazno" *ngIf="!ucitavanje && rezultat.length === 0">
+        <p>Nema artikala koji odgovaraju zadatim kriterijumima.</p>
+        <button mat-button color="primary" (click)="ponisti()">Ponisti pretragu</button>
+      </div>
+
+      <div class="mreza" *ngIf="!ucitavanje && rezultat.length > 0">
+        <app-igracka-kartica *ngFor="let i of prikazane" [igracka]="i"></app-igracka-kartica>
+      </div>
+
+      <mat-paginator *ngIf="rezultat.length > 0"
+                     [length]="rezultat.length"
+                     [pageSize]="velicinaStrane"
+                     [pageSizeOptions]="[3, 6, 12]"
+                     (page)="promenaStrane($event)">
+      </mat-paginator>
+    </div>
+  </div>
+</div>

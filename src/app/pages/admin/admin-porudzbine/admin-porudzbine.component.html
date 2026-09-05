@@ -1,0 +1,91 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Porudzbine</h1>
+  <p class="podnaslov-stranice">Pregled porudzbina i promena statusa obrade.</p>
+
+  <div class="panel mb16">
+    <mat-form-field class="filter">
+      <mat-label>Status</mat-label>
+      <mat-select [(ngModel)]="izabranStatus" (selectionChange)="filtriraj()">
+        <mat-option value="sve">Sve porudzbine</mat-option>
+        <mat-option *ngFor="let s of statusi" [value]="s">{{ s }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="panel">
+    <table mat-table [dataSource]="prikazane" class="puna-sirina">
+
+      <ng-container matColumnDef="broj">
+        <th mat-header-cell *matHeaderCellDef>Broj</th>
+        <td mat-cell *matCellDef="let p">{{ p.broj }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="kupac">
+        <th mat-header-cell *matHeaderCellDef>Kupac</th>
+        <td mat-cell *matCellDef="let p">{{ p.kupac.ime }} {{ p.kupac.prezime }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="datum">
+        <th mat-header-cell *matHeaderCellDef>Datum</th>
+        <td mat-cell *matCellDef="let p">{{ p.datum }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="iznos">
+        <th mat-header-cell *matHeaderCellDef>Iznos</th>
+        <td mat-cell *matCellDef="let p">{{ p.ukupno }} RSD</td>
+      </ng-container>
+
+      <ng-container matColumnDef="placanje">
+        <th mat-header-cell *matHeaderCellDef>Placanje</th>
+        <td mat-cell *matCellDef="let p">{{ p.nacinPlacanja }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Status</th>
+        <td mat-cell *matCellDef="let p">
+          <mat-form-field class="polje-statusa">
+            <mat-select [value]="p.status" (selectionChange)="promeniStatus(p, $event.value)">
+              <mat-option *ngFor="let s of statusi" [value]="s">{{ s }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="akcije">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let p">
+          <button mat-icon-button color="primary" (click)="prikaziDetalje(p)"><mat-icon>visibility</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="obrisi(p)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+      <tr mat-row *matRowDef="let red; columns: kolone;"></tr>
+    </table>
+  </div>
+
+  <div class="panel mt16" *ngIf="detalji as d">
+    <h3 class="bez-margine mb16">Detalji porudzbine {{ d.broj }}</h3>
+
+    <div class="red prelom g24">
+      <div class="popuni">
+        <p class="tekst-mali tekst-sivi">Stavke</p>
+        <div class="red na-krajevima" *ngFor="let s of d.stavke">
+          <span>{{ s.kolicina }} x {{ s.naziv }}</span>
+          <span>{{ s.cena * s.kolicina }} RSD</span>
+        </div>
+        <hr>
+        <div class="red na-krajevima"><b>Ukupno</b><b>{{ d.ukupno }} RSD</b></div>
+      </div>
+
+      <div class="popuni">
+        <p class="tekst-mali tekst-sivi">Kupac i dostava</p>
+        <p>{{ d.kupac.ime }} {{ d.kupac.prezime }}</p>
+        <p>{{ d.kupac.adresa }}, {{ d.kupac.grad }}</p>
+        <p>{{ d.kupac.telefon }} | {{ d.kupac.email }}</p>
+        <p>Nacin placanja: {{ d.nacinPlacanja }}</p>
+      </div>
+    </div>
+  </div>
+</div>

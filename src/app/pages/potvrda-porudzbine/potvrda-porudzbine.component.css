@@ -1,0 +1,5 @@
+.poruka { background-color: #e8f5e9; border-color: #c8e6c9; text-align: center; padding: 24px; }
+.poruka h1 { font-size: 24px; }
+.podaci { width: 280px; }
+.podaci p { margin: 4px 0; font-size: 14px; }
+hr { border: none; border-top: 1px solid #dddddd; margin: 12px 0; }

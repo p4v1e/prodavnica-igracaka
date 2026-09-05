@@ -1,0 +1,59 @@
+<div class="kontejner">
+
+  <div class="red na-krajevima centrirano mb16">
+    <div>
+      <h1 class="naslov-stranice">Igracke</h1>
+      <p class="podnaslov-stranice bez-margine">Ukupno artikala: {{ izvorPodataka.data.length }}</p>
+    </div>
+    <button mat-raised-button color="primary" (click)="dodaj()">Nova igracka</button>
+  </div>
+
+  <div class="panel">
+
+    <mat-form-field class="pretraga">
+      <mat-label>Pretraga</mat-label>
+      <input matInput (keyup)="filtriraj($event)">
+    </mat-form-field>
+
+    <table mat-table [dataSource]="izvorPodataka" class="puna-sirina">
+
+      <ng-container matColumnDef="sifra">
+        <th mat-header-cell *matHeaderCellDef>Sifra</th>
+        <td mat-cell *matCellDef="let i">{{ i.sifra }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="naziv">
+        <th mat-header-cell *matHeaderCellDef>Naziv</th>
+        <td mat-cell *matCellDef="let i">{{ i.slika }} {{ i.naziv }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="kategorija">
+        <th mat-header-cell *matHeaderCellDef>Kategorija</th>
+        <td mat-cell *matCellDef="let i">{{ nazivKategorije(i.kategorijaId) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="cena">
+        <th mat-header-cell *matHeaderCellDef>Cena</th>
+        <td mat-cell *matCellDef="let i">{{ i.cena }} RSD</td>
+      </ng-container>
+
+      <ng-container matColumnDef="zalihe">
+        <th mat-header-cell *matHeaderCellDef>Zalihe</th>
+        <td mat-cell *matCellDef="let i">
+          <span class="oznaka" [ngClass]="i.naStanju === 0 ? 'oznaka-nema' : ''">{{ i.naStanju }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="akcije">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let i">
+          <button mat-icon-button color="primary" (click)="izmeni(i)"><mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="obrisi(i)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+      <tr mat-row *matRowDef="let red; columns: kolone;"></tr>
+    </table>
+  </div>
+</div>

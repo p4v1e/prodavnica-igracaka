@@ -1,0 +1,45 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Korisnici</h1>
+  <p class="podnaslov-stranice">Ukupno registrovanih naloga: {{ korisnici.length }}</p>
+
+  <div class="panel">
+    <table mat-table [dataSource]="korisnici" class="puna-sirina">
+
+      <ng-container matColumnDef="ime">
+        <th mat-header-cell *matHeaderCellDef>Ime i prezime</th>
+        <td mat-cell *matCellDef="let k">{{ k.ime }} {{ k.prezime }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>E-adresa</th>
+        <td mat-cell *matCellDef="let k">{{ k.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefon">
+        <th mat-header-cell *matHeaderCellDef>Telefon</th>
+        <td mat-cell *matCellDef="let k">{{ k.telefon }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="grad">
+        <th mat-header-cell *matHeaderCellDef>Grad</th>
+        <td mat-cell *matCellDef="let k">{{ k.grad }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="uloga">
+        <th mat-header-cell *matHeaderCellDef>Uloga</th>
+        <td mat-cell *matCellDef="let k"><span class="oznaka">{{ k.uloga }}</span></td>
+      </ng-container>
+
+      <ng-container matColumnDef="akcije">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let k">
+          <button mat-icon-button color="warn" (click)="obrisi(k)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+      <tr mat-row *matRowDef="let red; columns: kolone;"></tr>
+    </table>
+  </div>
+</div>

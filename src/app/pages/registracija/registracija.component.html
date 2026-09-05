@@ -1,0 +1,71 @@
+<div class="kontejner">
+  <div class="okvir">
+
+    <h1 class="naslov-stranice">Registracija</h1>
+    <p class="podnaslov-stranice">Otvorite nalog da biste pratili svoje porudzbine.</p>
+
+    <form [formGroup]="forma" class="panel" (ngSubmit)="registruj()">
+
+      <p class="greska" *ngIf="greska">{{ greska }}</p>
+
+      <div class="red g8">
+        <mat-form-field>
+          <mat-label>Ime</mat-label>
+          <input matInput formControlName="ime">
+          <mat-error *ngIf="forma.controls.ime.invalid">Unesite ime.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Prezime</mat-label>
+          <input matInput formControlName="prezime">
+          <mat-error *ngIf="forma.controls.prezime.invalid">Unesite prezime.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="red g8">
+        <mat-form-field>
+          <mat-label>E-adresa</mat-label>
+          <input matInput formControlName="email">
+          <mat-error *ngIf="forma.controls.email.invalid">Unesite ispravnu e-adresu.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Telefon</mat-label>
+          <input matInput formControlName="telefon">
+          <mat-error *ngIf="forma.controls.telefon.invalid">Unesite telefon.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="red g8">
+        <mat-form-field>
+          <mat-label>Adresa</mat-label>
+          <input matInput formControlName="adresa">
+          <mat-error *ngIf="forma.controls.adresa.invalid">Unesite adresu.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Grad</mat-label>
+          <input matInput formControlName="grad">
+          <mat-error *ngIf="forma.controls.grad.invalid">Unesite grad.</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="red g8">
+        <mat-form-field>
+          <mat-label>Lozinka</mat-label>
+          <input matInput type="password" formControlName="lozinka">
+          <mat-error *ngIf="forma.controls.lozinka.invalid">Najmanje 5 znakova.</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Potvrda lozinke</mat-label>
+          <input matInput type="password" formControlName="potvrdaLozinke">
+        </mat-form-field>
+      </div>
+
+      <button mat-raised-button color="primary" type="submit" class="dugme" [disabled]="slanje">
+        {{ slanje ? 'Kreiranje naloga...' : 'Otvori nalog' }}
+      </button>
+
+      <p class="tekst-mali mt16">
+        Vec imate nalog? <a routerLink="/prijava">Prijavite se</a>
+      </p>
+    </form>
+  </div>
+</div>

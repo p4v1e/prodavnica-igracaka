@@ -1,0 +1,48 @@
+<div class="kontejner">
+
+  <p *ngIf="ucitavanje">Ucitavanje...</p>
+
+  <div *ngIf="!ucitavanje && igracka as ig">
+
+    <p class="tekst-mali">
+      <a routerLink="/">Pocetna</a> /
+      <a routerLink="/katalog">Katalog</a> /
+      {{ ig.naziv }}
+    </p>
+
+    <div class="red prelom g24">
+
+      <div class="panel slika">
+        <span class="emodzi">{{ ig.slika }}</span>
+      </div>
+
+      <div class="popuni">
+        <h1 class="naslov-stranice">{{ ig.naziv }}</h1>
+        <p class="tekst-sivi">{{ ig.proizvodjac }} | sifra: {{ ig.sifra }}</p>
+
+        <p class="cena-velika">{{ ig.cena }} RSD</p>
+
+        <p>{{ ig.opis }}</p>
+
+        <table class="tabela">
+          <tr><td>Kategorija</td><td>{{ nazivKategorije() }}</td></tr>
+          <tr><td>Uzrast</td><td>{{ ig.uzrast }} godina</td></tr>
+          <tr><td>Ocena</td><td>{{ ig.ocena }} / 5</td></tr>
+          <tr><td>Na stanju</td><td>{{ ig.naStanju }} kom.</td></tr>
+        </table>
+
+        <div class="red centrirano g16 mt16">
+          <span>Kolicina:</span>
+          <button mat-icon-button (click)="promeniKolicinu(-1)"><mat-icon>remove</mat-icon></button>
+          <span class="kolicina">{{ kolicina }}</span>
+          <button mat-icon-button (click)="promeniKolicinu(1)"><mat-icon>add</mat-icon></button>
+        </div>
+
+        <button mat-raised-button color="primary" class="mt16"
+                [disabled]="ig.naStanju === 0" (click)="dodajUKorpu()">
+          Dodaj u korpu
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

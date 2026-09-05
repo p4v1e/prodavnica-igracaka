@@ -1,0 +1,67 @@
+<div class="kontejner">
+
+  <h1 class="naslov-stranice">Kontrolna tabla</h1>
+  <p class="podnaslov-stranice">Osnovni pokazatelji poslovanja prodavnice.</p>
+
+  <div class="red prelom g16">
+    <div class="panel pokazatelj">
+      <p class="naslov">Artikala u ponudi</p>
+      <p class="vrednost">{{ brojArtikala }}</p>
+    </div>
+    <div class="panel pokazatelj">
+      <p class="naslov">Rasprodato</p>
+      <p class="vrednost">{{ rasprodato }}</p>
+    </div>
+    <div class="panel pokazatelj">
+      <p class="naslov">Porudzbina</p>
+      <p class="vrednost">{{ brojPorudzbina }}</p>
+    </div>
+    <div class="panel pokazatelj">
+      <p class="naslov">Ukupan promet</p>
+      <p class="vrednost">{{ promet }} RSD</p>
+    </div>
+  </div>
+
+  <div class="red prelom g16 mt16">
+
+    <div class="panel popuni">
+      <h3 class="bez-margine mb16">Artikli sa niskim zalihama</h3>
+
+      <p *ngIf="niskeZalihe.length === 0">Nema artikala sa niskim zalihama.</p>
+
+      <div class="red na-krajevima red-zalihe" *ngFor="let z of niskeZalihe">
+        <span class="tekst-mali">{{ z.slika }} {{ z.naziv }}</span>
+        <span class="oznaka" [ngClass]="z.naStanju === 0 ? 'oznaka-nema' : ''">{{ z.naStanju }} kom.</span>
+      </div>
+    </div>
+
+    <div class="panel popuni">
+      <h3 class="bez-margine mb16">Poslednje porudzbine</h3>
+
+      <table mat-table [dataSource]="poslednje" class="puna-sirina">
+        <ng-container matColumnDef="broj">
+          <th mat-header-cell *matHeaderCellDef>Broj</th>
+          <td mat-cell *matCellDef="let p">{{ p.broj }}</td>
+        </ng-container>
+        <ng-container matColumnDef="kupac">
+          <th mat-header-cell *matHeaderCellDef>Kupac</th>
+          <td mat-cell *matCellDef="let p">{{ p.kupac.ime }} {{ p.kupac.prezime }}</td>
+        </ng-container>
+        <ng-container matColumnDef="datum">
+          <th mat-header-cell *matHeaderCellDef>Datum</th>
+          <td mat-cell *matCellDef="let p">{{ p.datum }}</td>
+        </ng-container>
+        <ng-container matColumnDef="iznos">
+          <th mat-header-cell *matHeaderCellDef>Iznos</th>
+          <td mat-cell *matCellDef="let p">{{ p.ukupno }}</td>
+        </ng-container>
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef>Status</th>
+          <td mat-cell *matCellDef="let p"><span class="oznaka">{{ p.status }}</span></td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="kolone"></tr>
+        <tr mat-row *matRowDef="let red; columns: kolone;"></tr>
+      </table>
+    </div>
+  </div>
+</div>

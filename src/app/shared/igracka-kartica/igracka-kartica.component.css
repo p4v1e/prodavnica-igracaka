@@ -1,0 +1,29 @@
+.kartica {
+  cursor: pointer;
+  height: 100%;
+}
+
+.slika {
+  position: relative;
+  height: 120px;
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emodzi {
+  font-size: 56px;
+  font-family: "Noto Color Emoji", sans-serif;
+}
+
+.slika .oznaka {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
+
+.proizvodjac { font-size: 12px; color: #666666; margin: 8px 0 2px 0; }
+.naziv { font-size: 14px; font-weight: bold; margin: 0 0 6px 0; min-height: 34px; }
+.cena { margin: 8px 0 6px 0; }
+.dugme { width: 100%; }

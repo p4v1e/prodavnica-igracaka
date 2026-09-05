@@ -1,0 +1,32 @@
+<div class="kontejner">
+  <div class="okvir">
+
+    <h1 class="naslov-stranice">Prijava</h1>
+    <p class="podnaslov-stranice">Prijavite se da biste videli svoje porudzbine.</p>
+
+    <form [formGroup]="forma" class="panel" (ngSubmit)="prijavi()">
+
+      <p class="greska" *ngIf="greska">{{ greska }}</p>
+
+      <mat-form-field>
+        <mat-label>E-adresa</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="forma.controls.email.invalid">Unesite ispravnu e-adresu.</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Lozinka</mat-label>
+        <input matInput type="password" formControlName="lozinka">
+        <mat-error *ngIf="forma.controls.lozinka.invalid">Lozinka mora imati najmanje 5 znakova.</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" class="dugme" [disabled]="slanje">
+        {{ slanje ? 'Prijavljivanje...' : 'Prijavi se' }}
+      </button>
+
+      <p class="tekst-mali mt16">
+        Nemate nalog? <a routerLink="/registracija">Registrujte se</a>
+      </p>
+    </form>
+  </div>
+</div>
