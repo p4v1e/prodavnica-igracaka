@@ -9,8 +9,6 @@ export interface Igracka {
   cena: number;
   uzrast: string;
   naStanju: number;
-  ocena: number;
-  akcija: boolean;
   izdvojeno: boolean;
   slika: string;
 }

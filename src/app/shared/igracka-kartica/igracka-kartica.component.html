@@ -2,13 +2,12 @@
 
   <div class="slika">
     <span class="emodzi">{{ igracka.slika }}</span>
-    <span class="oznaka oznaka-akcija" *ngIf="igracka.akcija">Akcija</span>
   </div>
 
   <mat-card-content>
     <p class="proizvodjac">{{ igracka.proizvodjac }}</p>
     <p class="naziv">{{ igracka.naziv }}</p>
-    <p class="tekst-mali tekst-sivi">Uzrast: {{ igracka.uzrast }} godina | Ocena: {{ igracka.ocena }}</p>
+    <p class="tekst-mali tekst-sivi">Uzrast: {{ igracka.uzrast }} godina</p>
     <p class="cena">{{ igracka.cena }} RSD</p>
     <span class="oznaka" [ngClass]="igracka.naStanju > 0 ? 'oznaka-ima' : 'oznaka-nema'">
       {{ igracka.naStanju > 0 ? 'Na stanju' : 'Nema na stanju' }}

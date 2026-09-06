@@ -31,9 +31,7 @@ export class IgrackaFormaComponent {
     cena: [1000, [Validators.required, Validators.min(1)]],
     uzrast: ['3-5', Validators.required],
     naStanju: [0, [Validators.required, Validators.min(0)]],
-    ocena: [0, [Validators.min(0), Validators.max(5)]],
     slika: ['🧸', Validators.required],
-    akcija: [false],
     izdvojeno: [false]
   });
 

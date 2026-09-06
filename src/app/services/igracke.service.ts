@@ -50,8 +50,6 @@ export class IgrackeService {
       rezultat = rezultat.sort((a, b) => a.cena - b.cena);
     } else if (filter.sortiranje === 'cena-opadajuce') {
       rezultat = rezultat.sort((a, b) => b.cena - a.cena);
-    } else if (filter.sortiranje === 'ocena') {
-      rezultat = rezultat.sort((a, b) => b.ocena - a.ocena);
     } else {
       rezultat = rezultat.sort((a, b) => a.naziv.localeCompare(b.naziv));
     }
