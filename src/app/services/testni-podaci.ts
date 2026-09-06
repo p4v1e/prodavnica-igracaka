@@ -25,48 +25,17 @@ export const IGRACKE: Igracka[] = [
   { id: 12, sifra: 'IGR-012', naziv: 'Karte Uno', opis: 'Igra kartama za dva do deset igraca.', kategorijaId: 5, proizvodjac: 'Mattel', cena: 990,  uzrast: '6-8', naStanju: 88, ocena: 4.7, akcija: false, izdvojeno: false, slika: '🃏' },
   { id: 13, sifra: 'IGR-013', naziv: 'Magnetne plocice 100 delova', opis: 'Providne plocice za gradnju sa magnetima.', kategorijaId: 2, proizvodjac: 'Clementoni', cena: 6990, uzrast: '3-5', naStanju: 13, ocena: 4.8, akcija: false, izdvojeno: false, slika: '🔺' },
   { id: 14, sifra: 'IGR-014', naziv: 'Mikroskop za pocetnike', opis: 'Mikroskop sa tri uvecanja i setom preparata.', kategorijaId: 1, proizvodjac: 'Clementoni', cena: 5490, uzrast: '9-12', naStanju: 11, ocena: 4.5, akcija: false, izdvojeno: false, slika: '🔬' },
-  { id: 15, sifra: 'IGR-015', naziv: 'Kamion smecar', opis: 'Kamion sa pokretnim kontejnerom.', kategorijaId: 4, proizvodjac: 'Fisher-Price', cena: 3190, uzrast: '3-5', naStanju: 26, ocena: 4.2, akcija: false, izdvojeno: false, slika: '🚛' },
+  { id: 15, sifra: 'IGR-015', naziv: 'Kamion', opis: 'Kamion sa pokretnim kontejnerom.', kategorijaId: 4, proizvodjac: 'Fisher-Price', cena: 3190, uzrast: '3-5', naStanju: 26, ocena: 4.2, akcija: false, izdvojeno: false, slika: '🚛' },
   { id: 16, sifra: 'IGR-016', naziv: 'Set kuglica za bazen', opis: 'Dvesta mekih kuglica u cetiri boje.', kategorijaId: 6, proizvodjac: 'Chicco', cena: 2890, uzrast: '0-2', naStanju: 0,  ocena: 4.1, akcija: false, izdvojeno: false, slika: '🔴' },
-  { id: 17, sifra: 'IGR-017', naziv: 'Sah i dama drveni', opis: 'Sklopiva drvena tabla sa figurama.', kategorijaId: 5, proizvodjac: 'Pertini', cena: 2690, uzrast: '9-12', naStanju: 22, ocena: 4.6, akcija: false, izdvojeno: false, slika: '♟️' },
+  { id: 17, sifra: 'IGR-017', naziv: 'Sah', opis: 'Sklopiva drvena tabla sa figurama.', kategorijaId: 5, proizvodjac: 'Pertini', cena: 2690, uzrast: '9-12', naStanju: 22, ocena: 4.6, akcija: false, izdvojeno: false, slika: '♟️' },
   { id: 18, sifra: 'IGR-018', naziv: 'Zvucna knjiga Prva slova', opis: 'Knjiga koja izgovara slova i reci.', kategorijaId: 1, proizvodjac: 'Fisher-Price', cena: 2990, uzrast: '3-5', naStanju: 29, ocena: 4.5, akcija: true,  izdvojeno: false, slika: '📖' }
 ];
 
 export const KORISNICI: Korisnik[] = [
-  { id: 1, ime: 'Petar',  prezime: 'Ilic',       email: 'admin@igracke.rs',   lozinka: 'admin123',  telefon: '011/555-0100', adresa: 'Bulevar kralja Aleksandra 73', grad: 'Beograd',    uloga: 'administrator' },
-  { id: 2, ime: 'Marija', prezime: 'Jovanovic',  email: 'marija@primer.rs',   lozinka: 'marija123', telefon: '063/123-4567', adresa: 'Njegoseva 12',                 grad: 'Beograd',    uloga: 'kupac' },
-  { id: 3, ime: 'Nikola', prezime: 'Petrovic',   email: 'nikola@primer.rs',   lozinka: 'nikola123', telefon: '064/987-6543', adresa: 'Cara Dusana 45',               grad: 'Novi Sad',   uloga: 'kupac' },
-  { id: 4, ime: 'Jelena', prezime: 'Markovic',   email: 'jelena@primer.rs',   lozinka: 'jelena123', telefon: '060/222-3344', adresa: 'Kneza Milosa 8',               grad: 'Kragujevac', uloga: 'kupac' }
+  { id: 1, ime: 'Petar',  prezime: 'Ilic',       email: 'admin@igracke.rs',   lozinka: 'admin123',  telefon: '+381 66 55 44 33 22', adresa: 'Bulevar kralja Aleksandra 1111', grad: 'Beograd',    uloga: 'administrator' },
+  { id: 2, ime: 'Marija', prezime: 'Jovanovic',  email: 'marija@primer.rs',   lozinka: 'marija123', telefon: '+381 66 55 44 33 22', adresa: 'Njegoseva 1111',                 grad: 'Beograd',    uloga: 'kupac' },
+  { id: 3, ime: 'Nikola', prezime: 'Petrovic',   email: 'nikola@primer.rs',   lozinka: 'nikola123', telefon: '+381 66 55 44 33 22', adresa: 'Cara Dusana 1111',                grad: 'Novi Sad',   uloga: 'kupac' },
+  { id: 4, ime: 'Jelena', prezime: 'Markovic',   email: 'jelena@primer.rs',   lozinka: 'jelena123', telefon: '+381 66 55 44 33 22', adresa: 'Kneza Milosa 1111',               grad: 'Kragujevac', uloga: 'kupac' }
 ];
 
-export const PORUDZBINE: Porudzbina[] = [
-  {
-    id: 1, broj: 'PRD-0001', datum: '2026-08-14', kupacId: 2,
-    kupac: { ime: 'Marija', prezime: 'Jovanovic', email: 'marija@primer.rs', telefon: '063/123-4567', adresa: 'Njegoseva 12', grad: 'Beograd' },
-    stavke: [
-      { naziv: 'LEGO kocke 500 delova', cena: 5990, kolicina: 1 },
-      { naziv: 'Karte Uno', cena: 990, kolicina: 2 }
-    ],
-    ukupno: 7970, nacinPlacanja: 'kartica', status: 'isporucena'
-  },
-  {
-    id: 2, broj: 'PRD-0002', datum: '2026-08-21', kupacId: 3,
-    kupac: { ime: 'Nikola', prezime: 'Petrovic', email: 'nikola@primer.rs', telefon: '064/987-6543', adresa: 'Cara Dusana 45', grad: 'Novi Sad' },
-    stavke: [ { naziv: 'Drveni voz sa sinama', cena: 6490, kolicina: 1 } ],
-    ukupno: 6490, nacinPlacanja: 'pouzecem', status: 'poslata'
-  },
-  {
-    id: 3, broj: 'PRD-0003', datum: '2026-08-26', kupacId: 2,
-    kupac: { ime: 'Marija', prezime: 'Jovanovic', email: 'marija@primer.rs', telefon: '063/123-4567', adresa: 'Njegoseva 12', grad: 'Beograd' },
-    stavke: [ { naziv: 'Mikroskop za pocetnike', cena: 5490, kolicina: 1 } ],
-    ukupno: 5490, nacinPlacanja: 'kartica', status: 'u obradi'
-  },
-  {
-    id: 4, broj: 'PRD-0004', datum: '2026-09-01', kupacId: 4,
-    kupac: { ime: 'Jelena', prezime: 'Markovic', email: 'jelena@primer.rs', telefon: '060/222-3344', adresa: 'Kneza Milosa 8', grad: 'Kragujevac' },
-    stavke: [
-      { naziv: 'Romobil sa tri tocka', cena: 7490, kolicina: 1 },
-      { naziv: 'Fudbalska lopta velicina 5', cena: 2190, kolicina: 1 }
-    ],
-    ukupno: 9680, nacinPlacanja: 'pouzecem', status: 'nova'
-  }
-];
+export const PORUDZBINE: Porudzbina[] = [];

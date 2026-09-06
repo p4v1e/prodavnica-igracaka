@@ -1,63 +1,42 @@
-# Svet igracaka - prototip web prodavnice
+Svet igracaka - prototip web prodavnice igracaka
+================================================
 
-Semestralni projekat. Prototip korisnickog interfejsa sa simulacijom pozadinske
-logike na temu prodavnica igracaka.
+Semestralni projekat. Prototip korisnickog interfejsa sa simulacijom
+pozadinske logike, tema prodavnica igracaka.
 
-## Tehnologije
+Tehnologije: Angular 18, TypeScript, Angular Material (tema indigo-pink),
+RxJS, CSS Flexbox.
 
-- Angular 18 (projekat zasnovan na modulima)
-- TypeScript interfejsi za strukturu podataka
-- Angular Material + predefinisana tema indigo-pink
-- RxJS (BehaviorSubject, Observable) za simulaciju poziva ka serveru
-- CSS Flexbox za raspored elemenata
 
-## Pokretanje
+Pokretanje
+----------
 
-```
-npm install
-npm start
-```
+  npm install
+  npm start
 
 Aplikacija se otvara na http://localhost:4200
 
-## Nalozi za prijavu
 
-- administrator: admin@igracke.rs / admin123
-- kupac: marija@primer.rs / marija123
+Nalozi za prijavu
+-----------------
 
-## Struktura
+  administrator   admin@igracke.rs    admin123
+  kupac           marija@primer.rs    marija123
 
-```
-src/app/
-  models/       TypeScript interfejsi (Igracka, Kategorija, Korpa, Porudzbina, Korisnik)
-  services/     servisi koji simuliraju rad sa bazom (nizovi u memoriji)
-  guards/       cuvari rute (prijava i administracija)
-  shared/       zaglavlje, podnozje, kartica igracke, dijalog potvrde
-  pages/        stranice prodavnice i administrativni deo
-  material.module.ts
-  app-routing.module.ts
-  app.module.ts
-```
 
-## Rute
+Struktura foldera
+-----------------
 
-| Ruta | Prikaz |
-|------|--------|
-| / | pocetna strana |
-| /katalog | katalog sa pretragom |
-| /igracka/:id | detalji igracke |
-| /korpa | korpa |
-| /placanje | naplata u tri koraka |
-| /potvrda/:broj | potvrda porudzbine |
-| /prijava | prijava |
-| /registracija | registracija |
-| /kontakt | kontakt forma |
-| /nalog | korisnicki nalog (zasticena ruta) |
-| /admin | kontrolna tabla (samo administrator) |
-| /admin/igracke | unos, izmena i brisanje artikala |
-| /admin/porudzbine | pregled porudzbina i promena statusa |
-| /admin/korisnici | pregled korisnika |
-| ** | stranica nije pronadjena |
+  src/app/models      interfejsi koji opisuju strukturu podataka
+  src/app/services    servisi sa testnim podacima i logikom
+  src/app/guards      provera pristupa nalogu i administraciji
+  src/app/shared      zaglavlje, podnozje, kartica igracke, dijalog
+  src/app/pages       stranice prodavnice i administracije
 
-Podaci se cuvaju u memoriji dok traje sesija. Osvezavanjem stranice se vracaju
-pocetne vrednosti iz testni-podaci.ts
+
+Napomena
+--------
+
+Podaci se cuvaju u memoriji dok traje sesija. Osvezavanjem stranice se
+vracaju pocetne vrednosti iz services/testni-podaci.ts. Spisak porudzbina
+je na pocetku prazan - porudzbine nastaju tek kupovinom u aplikaciji.

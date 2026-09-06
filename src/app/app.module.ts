@@ -1,9 +1,7 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { registerLocaleData } from '@angular/common';
-import localeSr from '@angular/common/locales/sr-Latn';
 
 import { AppRoutingModule } from './app-routing.module';
 import { MaterialModule } from './material.module';
@@ -37,10 +35,7 @@ import { IgrackaFormaComponent } from './pages/admin/admin-igracke/igracka-forma
 import { AdminPorudzbineComponent } from './pages/admin/admin-porudzbine/admin-porudzbine.component';
 import { AdminKorisniciComponent } from './pages/admin/admin-korisnici/admin-korisnici.component';
 
-// Registrovanje srpske lokalizacije za prikaz brojeva i datuma.
-registerLocaleData(localeSr, 'sr-Latn');
-
-/** Korenski modul aplikacije. */
+// Korenski modul aplikacije
 @NgModule({
   declarations: [
     AppComponent,
@@ -74,9 +69,7 @@ registerLocaleData(localeSr, 'sr-Latn');
     AppRoutingModule,
     MaterialModule
   ],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'sr-Latn' }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
