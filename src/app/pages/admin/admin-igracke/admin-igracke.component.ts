@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
-import { Igracka } from '../../../models';
-import { IgrackeService, KategorijeService, NotifikacijeService } from '../../../services';
+import { Igracka } from '../../../models/igracka.model';
+import { IgrackeService } from '../../../services/igracke.service';
+import { KategorijeService } from '../../../services/kategorije.service';
+import { NotifikacijeService } from '../../../services/notifikacije.service';
 import { PotvrdaDijalogComponent } from '../../../shared/potvrda-dijalog/potvrda-dijalog.component';
 import { IgrackaFormaComponent } from './igracka-forma/igracka-forma.component';
 
@@ -13,15 +15,17 @@ import { IgrackaFormaComponent } from './igracka-forma/igracka-forma.component';
   styleUrls: ['./admin-igracke.component.css']
 })
 export class AdminIgrackeComponent implements OnInit {
-  private igrackeServis = inject(IgrackeService);
-  private kategorijeServis = inject(KategorijeService);
-  private dijalog = inject(MatDialog);
-  private poruke = inject(NotifikacijeService);
 
   izvorPodataka = new MatTableDataSource<Igracka>([]);
   kolone = ['sifra', 'naziv', 'kategorija', 'cena', 'zalihe', 'akcije'];
 
+  constructor(private igrackeServis: IgrackeService,
+              private kategorijeServis: KategorijeService,
+              private dijalog: MatDialog,
+              private poruke: NotifikacijeService) {}
+
   ngOnInit(): void {
+    // tabela se sama osvezava kad servis javi da su se podaci promenili
     this.igrackeServis.igracke$.subscribe(lista => this.izvorPodataka.data = lista);
   }
 

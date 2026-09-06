@@ -1,6 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Igracka, Porudzbina } from '../../../models';
-import { IgrackeService, PorudzbineService } from '../../../services';
+import { Component, OnInit } from '@angular/core';
+import { Igracka } from '../../../models/igracka.model';
+import { Porudzbina } from '../../../models/porudzbina.model';
+import { IgrackeService } from '../../../services/igracke.service';
+import { PorudzbineService } from '../../../services/porudzbine.service';
 
 // Kontrolna tabla sa osnovnim pokazateljima poslovanja
 @Component({
@@ -9,8 +11,6 @@ import { IgrackeService, PorudzbineService } from '../../../services';
   styleUrls: ['./kontrolna-tabla.component.css']
 })
 export class KontrolnaTablaComponent implements OnInit {
-  private igrackeServis = inject(IgrackeService);
-  private porudzbineServis = inject(PorudzbineService);
 
   brojArtikala = 0;
   rasprodato = 0;
@@ -20,6 +20,8 @@ export class KontrolnaTablaComponent implements OnInit {
   niskeZalihe: Igracka[] = [];
   poslednje: Porudzbina[] = [];
   kolone = ['broj', 'kupac', 'datum', 'iznos', 'status'];
+
+  constructor(private igrackeServis: IgrackeService, private porudzbineServis: PorudzbineService) {}
 
   ngOnInit(): void {
     this.igrackeServis.igracke$.subscribe(() => this.osvezi());

@@ -1,22 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Korisnik } from '../../../models';
-import { AuthService, NotifikacijeService } from '../../../services';
+import { Korisnik } from '../../../models/korisnik.model';
+import { AuthService } from '../../../services/auth.service';
+import { NotifikacijeService } from '../../../services/notifikacije.service';
 import { PotvrdaDijalogComponent } from '../../../shared/potvrda-dijalog/potvrda-dijalog.component';
 
-// Pregled registrovanih korisnika
 @Component({
   selector: 'app-admin-korisnici',
   templateUrl: './admin-korisnici.component.html',
   styleUrls: ['./admin-korisnici.component.css']
 })
 export class AdminKorisniciComponent implements OnInit {
-  private auth = inject(AuthService);
-  private dijalog = inject(MatDialog);
-  private poruke = inject(NotifikacijeService);
 
   korisnici: Korisnik[] = [];
   kolone = ['ime', 'email', 'telefon', 'grad', 'uloga', 'akcije'];
+
+  constructor(private auth: AuthService, private dijalog: MatDialog, private poruke: NotifikacijeService) {}
 
   ngOnInit(): void {
     this.auth.korisnici$.subscribe(lista => this.korisnici = lista);

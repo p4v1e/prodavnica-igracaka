@@ -1,7 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { Igracka } from '../../models';
-import { KorpaService, NotifikacijeService } from '../../services';
+import { Igracka } from '../../models/igracka.model';
+import { KorpaService } from '../../services/korpa.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
 // Kartica jedne igracke, koristi se na pocetnoj strani i u katalogu
 @Component({
@@ -12,9 +13,8 @@ import { KorpaService, NotifikacijeService } from '../../services';
 export class IgrackaKarticaComponent {
   @Input() igracka!: Igracka;
 
-  private korpa = inject(KorpaService);
-  private poruke = inject(NotifikacijeService);
-  private router = inject(Router);
+
+  constructor(private korpa: KorpaService, private poruke: NotifikacijeService, private router: Router) {}
 
   otvori(): void {
     this.router.navigate(['/igracka', this.igracka.id]);

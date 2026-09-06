@@ -8,14 +8,12 @@ export interface PodaciKupca {
   grad: string;
 }
 
-// Stavka porudzbine
 export interface StavkaPorudzbine {
   naziv: string;
   cena: number;
   kolicina: number;
 }
 
-// Porudzbina
 export interface Porudzbina {
   id: number;
   broj: string;

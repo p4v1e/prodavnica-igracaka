@@ -1,8 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { FilterIgracaka, Igracka, Kategorija, PRAZAN_FILTER } from '../../models';
-import { IgrackeService, KategorijeService } from '../../services';
+import { FilterIgracaka, Igracka, PRAZAN_FILTER } from '../../models/igracka.model';
+import { Kategorija } from '../../models/kategorija.model';
+import { IgrackeService } from '../../services/igracke.service';
+import { KategorijeService } from '../../services/kategorije.service';
 
 // Katalog sa pretragom, filtriranjem i podelom na strane
 @Component({
@@ -11,10 +13,6 @@ import { IgrackeService, KategorijeService } from '../../services';
   styleUrls: ['./katalog.component.css']
 })
 export class KatalogComponent implements OnInit {
-  private igrackeServis = inject(IgrackeService);
-  private kategorijeServis = inject(KategorijeService);
-  private ruta = inject(ActivatedRoute);
-  private router = inject(Router);
 
   filter: FilterIgracaka = { ...PRAZAN_FILTER };
   kategorije: Kategorija[] = [];
@@ -27,6 +25,11 @@ export class KatalogComponent implements OnInit {
   velicinaStrane = 6;
   trenutnaStrana = 0;
 
+  constructor(private igrackeServis: IgrackeService,
+              private kategorijeServis: KategorijeService,
+              private ruta: ActivatedRoute,
+              private router: Router) {}
+
   ngOnInit(): void {
     this.kategorije = this.kategorijeServis.sveSinhrono();
 
@@ -34,6 +37,7 @@ export class KatalogComponent implements OnInit {
     this.ruta.queryParams.subscribe(parametri => {
       this.filter = { ...PRAZAN_FILTER };
       if (parametri['kategorija']) {
+        // parametri rute su uvek stringovi, pa mora konverzija
         this.filter.kategorijaId = Number(parametri['kategorija']);
       }
       this.pretrazi();

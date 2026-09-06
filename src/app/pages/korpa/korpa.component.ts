@@ -1,23 +1,24 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import { KorpaService, NotifikacijeService } from '../../services';
+import { KorpaService } from '../../services/korpa.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 import { PotvrdaDijalogComponent } from '../../shared/potvrda-dijalog/potvrda-dijalog.component';
 
-// Prikaz i izmena sadrzaja korpe
 @Component({
   selector: 'app-korpa',
   templateUrl: './korpa.component.html',
   styleUrls: ['./korpa.component.css']
 })
 export class KorpaComponent {
-  private korpaServis = inject(KorpaService);
-  private dijalog = inject(MatDialog);
-  private poruke = inject(NotifikacijeService);
-  private router = inject(Router);
 
   stanje$ = this.korpaServis.stanje$;
   kolone = ['artikal', 'cena', 'kolicina', 'iznos', 'akcije'];
+
+  constructor(private korpaServis: KorpaService,
+              private dijalog: MatDialog,
+              private poruke: NotifikacijeService,
+              private router: Router) {}
 
   izmeniKolicinu(igrackaId: number, kolicina: number): void {
     this.korpaServis.izmeniKolicinu(igrackaId, kolicina);

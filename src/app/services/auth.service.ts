@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
-import { Korisnik, OdgovorPrijave, PodaciPrijave } from '../models';
+import { Korisnik, OdgovorPrijave, PodaciPrijave } from '../models/korisnik.model';
 import { KORISNICI } from './testni-podaci';
 import { KASNJENJE } from './kategorije.service';
 
@@ -40,13 +40,14 @@ export class AuthService {
       .pipe(delay(KASNJENJE));
   }
 
-  registracija(podaci: Omit<Korisnik, 'id' | 'uloga'>): Observable<OdgovorPrijave> {
-    const zauzet = this.korisnici.some(k => k.email.toLowerCase() === podaci.email.trim().toLowerCase());
+  registracija(novi: Korisnik): Observable<OdgovorPrijave> {
+    const zauzet = this.korisnici.some(k => k.email.toLowerCase() === novi.email.trim().toLowerCase());
     if (zauzet) {
       return of({ uspeh: false, poruka: 'Nalog sa unetom e-adresom vec postoji.' }).pipe(delay(KASNJENJE));
     }
 
-    const novi: Korisnik = { ...podaci, id: this.sledeciId(), uloga: 'kupac' };
+    novi.id = this.sledeciId();
+    novi.uloga = 'kupac';
     this.korisnici = [...this.korisnici, novi];
     this.izvorKorisnika.next(this.korisnici);
     this.trenutni.next(novi);

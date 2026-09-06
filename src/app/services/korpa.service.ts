@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { Igracka, StanjeKorpe, StavkaKorpe } from '../models';
+import { Igracka } from '../models/igracka.model';
+import { StanjeKorpe, StavkaKorpe } from '../models/korpa.model';
+
+const CENA_DOSTAVE = 390;
+const PRAG_BESPLATNE_DOSTAVE = 4000;
 
 // Servis korpe. Sadrzaj korpe se cuva u toku sesije.
 @Injectable({ providedIn: 'root' })
 export class KorpaService {
-  static readonly CENA_DOSTAVE = 390;
-  static readonly PRAG_BESPLATNE_DOSTAVE = 4000;
 
   private stavke: StavkaKorpe[] = [];
   private izvor = new BehaviorSubject<StanjeKorpe>(this.obracunaj());
@@ -58,8 +60,8 @@ export class KorpaService {
       medjuzbir = medjuzbir + s.igracka.cena * s.kolicina;
     }
 
-    let dostava = KorpaService.CENA_DOSTAVE;
-    if (medjuzbir === 0 || medjuzbir >= KorpaService.PRAG_BESPLATNE_DOSTAVE) {
+    let dostava = CENA_DOSTAVE;
+    if (medjuzbir === 0 || medjuzbir >= PRAG_BESPLATNE_DOSTAVE) {
       dostava = 0;
     }
 

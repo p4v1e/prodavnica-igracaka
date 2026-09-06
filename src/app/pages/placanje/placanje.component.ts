@@ -1,8 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PodaciKupca, StanjeKorpe } from '../../models';
-import { AuthService, KorpaService, NotifikacijeService, PorudzbineService } from '../../services';
+import { StanjeKorpe } from '../../models/korpa.model';
+import { PodaciKupca } from '../../models/porudzbina.model';
+import { AuthService } from '../../services/auth.service';
+import { KorpaService } from '../../services/korpa.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
+import { PorudzbineService } from '../../services/porudzbine.service';
 
 // Naplata u koracima: podaci o kupcu, nacin placanja i potvrda
 @Component({
@@ -11,12 +15,6 @@ import { AuthService, KorpaService, NotifikacijeService, PorudzbineService } fro
   styleUrls: ['./placanje.component.css']
 })
 export class PlacanjeComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private korpaServis = inject(KorpaService);
-  private porudzbineServis = inject(PorudzbineService);
-  private auth = inject(AuthService);
-  private poruke = inject(NotifikacijeService);
-  private router = inject(Router);
 
   stanje: StanjeKorpe = this.korpaServis.stanje;
   slanje = false;
@@ -35,6 +33,13 @@ export class PlacanjeComponent implements OnInit {
   formaPlacanja = this.fb.nonNullable.group({
     nacin: ['pouzecem', Validators.required]
   });
+
+  constructor(private fb: FormBuilder,
+              private korpaServis: KorpaService,
+              private porudzbineServis: PorudzbineService,
+              private auth: AuthService,
+              private poruke: NotifikacijeService,
+              private router: Router) {}
 
   ngOnInit(): void {
     this.korpaServis.stanje$.subscribe(s => this.stanje = s);

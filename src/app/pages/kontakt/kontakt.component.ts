@@ -1,16 +1,13 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { NotifikacijeService } from '../../services';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
-// Forma za slanje poruke prodavnici
 @Component({
   selector: 'app-kontakt',
   templateUrl: './kontakt.component.html',
   styleUrls: ['./kontakt.component.css']
 })
 export class KontaktComponent {
-  private fb = inject(FormBuilder);
-  private poruke = inject(NotifikacijeService);
 
   poslato = false;
 
@@ -19,6 +16,8 @@ export class KontaktComponent {
     email: ['', [Validators.required, Validators.email]],
     poruka: ['', [Validators.required, Validators.minLength(10)]]
   });
+
+  constructor(private fb: FormBuilder, private poruke: NotifikacijeService) {}
 
   posalji(): void {
     if (this.forma.invalid) {

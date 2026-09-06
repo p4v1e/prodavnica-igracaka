@@ -1,5 +1,8 @@
 // Testni podaci aplikacije. Servisi ih ucitavaju u nizove i rade sa njima.
-import { Igracka, Kategorija, Korisnik, Porudzbina } from '../models';
+import { Igracka } from '../models/igracka.model';
+import { Kategorija } from '../models/kategorija.model';
+import { Korisnik } from '../models/korisnik.model';
+import { Porudzbina } from '../models/porudzbina.model';
 
 export const KATEGORIJE: Kategorija[] = [
   { id: 1, naziv: 'Edukativne igracke', opis: 'Igracke za ucenje i razvoj', slika: '🧠' },

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
-import { FilterIgracaka, Igracka } from '../models';
+import { FilterIgracaka, Igracka } from '../models/igracka.model';
 import { IGRACKE } from './testni-podaci';
 import { KASNJENJE } from './kategorije.service';
 
@@ -61,9 +61,9 @@ export class IgrackeService {
 
   // ---- upis, izmena, brisanje ----
 
-  dodaj(podaci: Omit<Igracka, 'id' | 'sifra'>): Observable<Igracka> {
-    const id = this.sledeciId();
-    const nova: Igracka = { ...podaci, id: id, sifra: 'IGR-' + String(id).padStart(3, '0') };
+  dodaj(nova: Igracka): Observable<Igracka> {
+    nova.id = this.sledeciId();
+    nova.sifra = 'IGR-' + String(nova.id).padStart(3, '0');
     this.igracke = [...this.igracke, nova];
     this.izvor.next(this.igracke);
     return of(nova).pipe(delay(KASNJENJE));

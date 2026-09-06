@@ -1,7 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Korisnik, Porudzbina } from '../../models';
-import { AuthService, NotifikacijeService, PorudzbineService } from '../../services';
+import { Korisnik } from '../../models/korisnik.model';
+import { Porudzbina } from '../../models/porudzbina.model';
+import { AuthService } from '../../services/auth.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
+import { PorudzbineService } from '../../services/porudzbine.service';
 
 // Korisnicki nalog: licni podaci i pregled porudzbina
 @Component({
@@ -10,10 +13,6 @@ import { AuthService, NotifikacijeService, PorudzbineService } from '../../servi
   styleUrls: ['./moj-nalog.component.css']
 })
 export class MojNalogComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
-  private porudzbineServis = inject(PorudzbineService);
-  private poruke = inject(NotifikacijeService);
 
   korisnik: Korisnik | null = null;
   porudzbine: Porudzbina[] = [];
@@ -27,6 +26,11 @@ export class MojNalogComponent implements OnInit {
     adresa: ['', Validators.required],
     grad: ['', Validators.required]
   });
+
+  constructor(private fb: FormBuilder,
+              private auth: AuthService,
+              private porudzbineServis: PorudzbineService,
+              private poruke: NotifikacijeService) {}
 
   ngOnInit(): void {
     this.auth.korisnik$.subscribe(k => {

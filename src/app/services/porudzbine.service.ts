@@ -1,6 +1,7 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, delay, of } from 'rxjs';
-import { PodaciKupca, Porudzbina, StanjeKorpe, StavkaPorudzbine } from '../models';
+import { StanjeKorpe } from '../models/korpa.model';
+import { PodaciKupca, Porudzbina, StavkaPorudzbine } from '../models/porudzbina.model';
 import { PORUDZBINE } from './testni-podaci';
 import { KASNJENJE } from './kategorije.service';
 import { IgrackeService } from './igracke.service';
@@ -8,7 +9,6 @@ import { IgrackeService } from './igracke.service';
 // Servis za rad sa porudzbinama
 @Injectable({ providedIn: 'root' })
 export class PorudzbineService {
-  private igrackeServis = inject(IgrackeService);
 
   private porudzbine: Porudzbina[] = PORUDZBINE.map(p => ({ ...p }));
   private izvor = new BehaviorSubject<Porudzbina[]>(this.porudzbine);
@@ -16,6 +16,8 @@ export class PorudzbineService {
   porudzbine$ = this.izvor.asObservable();
 
   statusi = ['nova', 'u obradi', 'poslata', 'isporucena', 'otkazana'];
+
+  constructor(private igrackeServis: IgrackeService) {}
 
   sve(): Observable<Porudzbina[]> {
     return of(this.porudzbine).pipe(delay(KASNJENJE));

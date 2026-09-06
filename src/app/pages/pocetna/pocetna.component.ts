@@ -1,20 +1,21 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Igracka, Kategorija } from '../../models';
-import { IgrackeService, KategorijeService } from '../../services';
+import { Component, OnInit } from '@angular/core';
+import { Igracka } from '../../models/igracka.model';
+import { Kategorija } from '../../models/kategorija.model';
+import { IgrackeService } from '../../services/igracke.service';
+import { KategorijeService } from '../../services/kategorije.service';
 
-// Pocetna strana: kategorije i izdvojene igracke
 @Component({
   selector: 'app-pocetna',
   templateUrl: './pocetna.component.html',
   styleUrls: ['./pocetna.component.css']
 })
 export class PocetnaComponent implements OnInit {
-  private igrackeServis = inject(IgrackeService);
-  private kategorijeServis = inject(KategorijeService);
 
   kategorije: Kategorija[] = [];
   izdvojene: Igracka[] = [];
   ucitavanje = true;
+
+  constructor(private igrackeServis: IgrackeService, private kategorijeServis: KategorijeService) {}
 
   ngOnInit(): void {
     this.kategorijeServis.sve().subscribe(lista => this.kategorije = lista);

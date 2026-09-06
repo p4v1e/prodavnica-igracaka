@@ -1,19 +1,16 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService, NotifikacijeService } from '../../services';
+import { Korisnik } from '../../models/korisnik.model';
+import { AuthService } from '../../services/auth.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
-// Otvaranje novog korisnickog naloga
 @Component({
   selector: 'app-registracija',
   templateUrl: './registracija.component.html',
   styleUrls: ['./registracija.component.css']
 })
 export class RegistracijaComponent {
-  private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
-  private router = inject(Router);
-  private poruke = inject(NotifikacijeService);
 
   forma = this.fb.nonNullable.group({
     ime: ['', [Validators.required, Validators.minLength(2)]],
@@ -28,6 +25,11 @@ export class RegistracijaComponent {
 
   greska = '';
   slanje = false;
+
+  constructor(private fb: FormBuilder,
+              private auth: AuthService,
+              private router: Router,
+              private poruke: NotifikacijeService) {}
 
   registruj(): void {
     if (this.forma.invalid) {
@@ -46,10 +48,14 @@ export class RegistracijaComponent {
     this.slanje = true;
     this.greska = '';
 
-    this.auth.registracija({
+    const novi: Korisnik = {
+      id: 0,
       ime: v.ime, prezime: v.prezime, email: v.email, lozinka: v.lozinka,
-      telefon: v.telefon, adresa: v.adresa, grad: v.grad
-    }).subscribe(odgovor => {
+      telefon: v.telefon, adresa: v.adresa, grad: v.grad,
+      uloga: 'kupac'
+    };
+
+    this.auth.registracija(novi).subscribe(odgovor => {
       this.slanje = false;
       if (!odgovor.uspeh) {
         this.greska = odgovor.poruka;

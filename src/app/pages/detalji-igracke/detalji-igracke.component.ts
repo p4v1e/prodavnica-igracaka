@@ -1,7 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Igracka } from '../../models';
-import { IgrackeService, KategorijeService, KorpaService, NotifikacijeService } from '../../services';
+import { Igracka } from '../../models/igracka.model';
+import { IgrackeService } from '../../services/igracke.service';
+import { KategorijeService } from '../../services/kategorije.service';
+import { KorpaService } from '../../services/korpa.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
 // Prikaz podataka o izabranoj igracki i dodavanje u korpu
 @Component({
@@ -10,16 +13,17 @@ import { IgrackeService, KategorijeService, KorpaService, NotifikacijeService } 
   styleUrls: ['./detalji-igracke.component.css']
 })
 export class DetaljiIgrackeComponent implements OnInit {
-  private ruta = inject(ActivatedRoute);
-  private router = inject(Router);
-  private igrackeServis = inject(IgrackeService);
-  private kategorijeServis = inject(KategorijeService);
-  private korpa = inject(KorpaService);
-  private poruke = inject(NotifikacijeService);
 
   igracka?: Igracka;
   kolicina = 1;
   ucitavanje = true;
+
+  constructor(private ruta: ActivatedRoute,
+              private router: Router,
+              private igrackeServis: IgrackeService,
+              private kategorijeServis: KategorijeService,
+              private korpa: KorpaService,
+              private poruke: NotifikacijeService) {}
 
   ngOnInit(): void {
     const id = Number(this.ruta.snapshot.paramMap.get('id'));

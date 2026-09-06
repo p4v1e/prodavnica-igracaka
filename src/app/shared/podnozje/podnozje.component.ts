@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 
-// Podnozje sa osnovnim podacima o prodavnici
 @Component({
   selector: 'app-podnozje',
   templateUrl: './podnozje.component.html',

@@ -1,6 +1,7 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService, NotifikacijeService } from '../services';
+import { AuthService } from '../services/auth.service';
+import { NotifikacijeService } from '../services/notifikacije.service';
 
 // Dozvoljava pristup samo prijavljenim korisnicima
 export const authGuard: CanActivateFn = (ruta, stanje) => {
@@ -13,6 +14,7 @@ export const authGuard: CanActivateFn = (ruta, stanje) => {
   }
 
   poruke.info('Potrebno je da se prijavite.');
+  // pamti se gde je korisnik krenuo, da bi se posle prijave vratio tamo
   return router.createUrlTree(['/prijava'], { queryParams: { povratak: stanje.url } });
 };
 

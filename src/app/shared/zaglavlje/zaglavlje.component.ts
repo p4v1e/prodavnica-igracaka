@@ -1,6 +1,8 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService, KorpaService, NotifikacijeService } from '../../services';
+import { AuthService } from '../../services/auth.service';
+import { KorpaService } from '../../services/korpa.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
 // Zaglavlje sa navigacijom, brojem artikala u korpi i menijem korisnika
 @Component({
@@ -9,13 +11,14 @@ import { AuthService, KorpaService, NotifikacijeService } from '../../services';
   styleUrls: ['./zaglavlje.component.css']
 })
 export class ZaglavljeComponent {
-  private router = inject(Router);
-  private korpaServis = inject(KorpaService);
-  private poruke = inject(NotifikacijeService);
-  private auth = inject(AuthService);
 
   korpa$ = this.korpaServis.stanje$;
   korisnik$ = this.auth.korisnik$;
+
+  constructor(private router: Router,
+              private korpaServis: KorpaService,
+              private poruke: NotifikacijeService,
+              private auth: AuthService) {}
 
   odjava(): void {
     this.auth.odjava();

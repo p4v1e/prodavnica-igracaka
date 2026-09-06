@@ -1,7 +1,8 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Porudzbina } from '../../../models';
-import { NotifikacijeService, PorudzbineService } from '../../../services';
+import { Porudzbina } from '../../../models/porudzbina.model';
+import { NotifikacijeService } from '../../../services/notifikacije.service';
+import { PorudzbineService } from '../../../services/porudzbine.service';
 import { PotvrdaDijalogComponent } from '../../../shared/potvrda-dijalog/potvrda-dijalog.component';
 
 // Pregled porudzbina i promena statusa obrade
@@ -11,9 +12,6 @@ import { PotvrdaDijalogComponent } from '../../../shared/potvrda-dijalog/potvrda
   styleUrls: ['./admin-porudzbine.component.css']
 })
 export class AdminPorudzbineComponent implements OnInit {
-  private porudzbineServis = inject(PorudzbineService);
-  private dijalog = inject(MatDialog);
-  private poruke = inject(NotifikacijeService);
 
   svePorudzbine: Porudzbina[] = [];
   prikazane: Porudzbina[] = [];
@@ -23,6 +21,10 @@ export class AdminPorudzbineComponent implements OnInit {
   statusi = this.porudzbineServis.statusi;
   kolone = ['broj', 'kupac', 'datum', 'iznos', 'placanje', 'status', 'akcije'];
 
+  constructor(private porudzbineServis: PorudzbineService,
+              private dijalog: MatDialog,
+              private poruke: NotifikacijeService) {}
+
   ngOnInit(): void {
     this.porudzbineServis.porudzbine$.subscribe(lista => {
       this.svePorudzbine = lista;
@@ -30,6 +32,7 @@ export class AdminPorudzbineComponent implements OnInit {
     });
   }
 
+  // TODO: dodati poruku kad nema nijedne porudzbine
   filtriraj(): void {
     if (this.izabranStatus === 'sve') {
       this.prikazane = this.svePorudzbine;

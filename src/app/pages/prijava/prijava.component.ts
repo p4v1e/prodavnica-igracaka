@@ -1,20 +1,15 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService, NotifikacijeService } from '../../services';
+import { AuthService } from '../../services/auth.service';
+import { NotifikacijeService } from '../../services/notifikacije.service';
 
-// Prijava korisnika na nalog
 @Component({
   selector: 'app-prijava',
   templateUrl: './prijava.component.html',
   styleUrls: ['./prijava.component.css']
 })
 export class PrijavaComponent implements OnInit {
-  private fb = inject(FormBuilder);
-  private auth = inject(AuthService);
-  private router = inject(Router);
-  private ruta = inject(ActivatedRoute);
-  private poruke = inject(NotifikacijeService);
 
   forma = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -24,6 +19,12 @@ export class PrijavaComponent implements OnInit {
   greska = '';
   slanje = false;
   private povratnaRuta = '/';
+
+  constructor(private fb: FormBuilder,
+              private auth: AuthService,
+              private router: Router,
+              private ruta: ActivatedRoute,
+              private poruke: NotifikacijeService) {}
 
   ngOnInit(): void {
     const povratak = this.ruta.snapshot.queryParamMap.get('povratak');

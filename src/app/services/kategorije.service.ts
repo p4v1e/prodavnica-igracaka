@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, delay, of } from 'rxjs';
-import { Kategorija } from '../models';
+import { Kategorija } from '../models/kategorija.model';
 import { KATEGORIJE } from './testni-podaci';
 
 // Simulirano kasnjenje odgovora servera

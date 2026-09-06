@@ -1,8 +1,10 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Igracka, Kategorija } from '../../../../models';
-import { IgrackeService, KategorijeService } from '../../../../services';
+import { Igracka } from '../../../../models/igracka.model';
+import { Kategorija } from '../../../../models/kategorija.model';
+import { IgrackeService } from '../../../../services/igracke.service';
+import { KategorijeService } from '../../../../services/kategorije.service';
 
 // Podaci koji se prosledjuju dijalogu (prazno za unos nove igracke)
 export interface PodaciFormeIgracke {
@@ -16,10 +18,6 @@ export interface PodaciFormeIgracke {
   styleUrls: ['./igracka-forma.component.css']
 })
 export class IgrackaFormaComponent {
-  private fb = inject(FormBuilder);
-  private igrackeServis = inject(IgrackeService);
-  private kategorijeServis = inject(KategorijeService);
-  private dijalogRef = inject(MatDialogRef<IgrackaFormaComponent>);
 
   kategorije: Kategorija[] = this.kategorijeServis.sveSinhrono();
   uzrasti = ['0-2', '3-5', '6-8', '9-12'];
@@ -39,7 +37,8 @@ export class IgrackaFormaComponent {
     izdvojeno: [false]
   });
 
-  constructor(@Inject(MAT_DIALOG_DATA) public podaci: PodaciFormeIgracke) {
+  constructor(private fb: FormBuilder, private igrackeServis: IgrackeService, private kategorijeServis: KategorijeService, private dijalogRef: MatDialogRef<IgrackaFormaComponent>,
+              @Inject(MAT_DIALOG_DATA) public podaci: PodaciFormeIgracke) {
     if (podaci.igracka) {
       this.izmena = true;
       this.forma.patchValue(podaci.igracka);
@@ -58,7 +57,8 @@ export class IgrackaFormaComponent {
       const izmenjena: Igracka = { ...this.podaci.igracka, ...v };
       this.igrackeServis.izmeni(izmenjena).subscribe(rezultat => this.dijalogRef.close(rezultat));
     } else {
-      this.igrackeServis.dodaj(v).subscribe(rezultat => this.dijalogRef.close(rezultat));
+      const nova: Igracka = { ...v, id: 0, sifra: '' };
+      this.igrackeServis.dodaj(nova).subscribe(rezultat => this.dijalogRef.close(rezultat));
     }
   }
 }
